@@ -117,3 +117,83 @@
 
     list(friends);
     search("Steve");
+
+
+
+### `this` keywords
+
+
+    var rectangle = new Object();
+    rectangle.height = 3;
+    rectangle.width = 4;
+    // here is our method to set the height
+    rectangle.setHeight = function (newHeight) {
+      this.height = newHeight;
+    };
+    // help by finishing this method
+    rectangle.setWidth = function (newWidth) {
+        this.width = newWidth;
+    };
+      
+    // here change the width to 8 and height to 6 using our new methods
+    rectangle.setHeight(6);
+    rectangle.setWidth(8);
+
+
+
+### Custom Constructors
+
+    function Person(name,age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    // Let's make bob and susan again, using our constructor
+    var bob = new Person("Bob Smith", 30);
+    var susan = new Person("Susan Jordan", 25);
+    // help us make george, whose name is "George Washington" and age is 275
+    var george = new Person("George Washington", 275);
+
+
+
+### Method in constructor
+
+    var james = {
+        job: "programmer",
+        married: false,
+        speak: function( feeling ) {
+            console.log("Hello, I am feeling " + feeling);
+        }
+    };
+
+    james.speak("great");
+    james.speak("just okay");
+
+
+### hasOwnProperty
+
+    var suitcase = {
+        shirt: "Hawaiian"
+    };
+
+    if(suitcase.hasOwnProperty("shorts")){
+        console.log(suitcase.shorts);
+    }else{
+        suitcase.shorts = "beach shorts";  
+        console.log(suitcase. shorts)
+    }
+
+
+### for in
+
+  var nyc = {
+      fullName: "New York City",
+      mayor: "Bill de Blasio",
+      population: 8000000,
+      boroughs: 5
+  };
+
+  // write a for-in loop to print the value of nyc's properties
+  for(var value in nyc){
+      console.log(nyc[value]);
+  }
