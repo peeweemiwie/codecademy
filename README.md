@@ -186,14 +186,208 @@
 
 ### for in
 
-  var nyc = {
-      fullName: "New York City",
-      mayor: "Bill de Blasio",
-      population: 8000000,
-      boroughs: 5
-  };
+    var nyc = {
+        fullName: "New York City",
+        mayor: "Bill de Blasio",
+        population: 8000000,
+        boroughs: 5
+    };
 
-  // write a for-in loop to print the value of nyc's properties
-  for(var value in nyc){
-      console.log(nyc[value]);
-  }
+    for(var value in nyc){
+        console.log(nyc[value]);
+    }
+
+
+### class
+
+    function Person(name,age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    var printPersonName = function (p) {
+      console.log(p.name);
+    };
+
+    var bob = new Person("Bob Smith", 30);
+    printPersonName(bob);
+
+    var me = new Person("Love Yagi", 2);
+    printPersonName(me);
+
+### prototype
+
+    function Cat(name, breed) {
+        this.name = name;
+        this.breed = breed;
+    }
+
+    var cheshire = new Cat("Cheshire Cat", "British Shorthair");
+    var gary = new Cat("Gary", "Domestic Shorthair");
+    var love = new Cat("Love", "Tuxedo");
+
+    // add a method "meow" to the Cat class that will allow
+    // all cats to print "Meow!" to the console
+    Cat.prototype.meow = function(sound){
+        console.log(sound);
+    };
+
+    // add code here to make the cats meow!
+    cheshire.meow("Meow");
+    gary.meow("Meooow!");
+    love.meow("Meoooooowwww!");
+
+
+### Inheritence
+
+    function Animal(name, numLegs) {
+        this.name = name;
+        this.numLegs = numLegs;
+    }
+
+    Animal.prototype.sayName = function() {
+        console.log("Hi my name is " + this.name);
+    };
+
+    function Penguin(name) {
+        this.name = name;
+        this.numLegs = 2;
+    }
+
+    Penguin.prototype = new Animal();
+    var penguin = new Penguin("Pen");
+    penguin.sayName();
+
+
+### Accessing Private Variables
+
+    function Person(first,last,age) {
+       this.firstname = first;
+       this.lastname = last;
+       this.age = age;
+       var bankBalance = 7500;
+      
+       this.getBalance = function() {
+          return bankBalance;
+       };
+    }
+
+    var john = new Person('John','Smith',30);
+
+    var myBalance = john.getBalance();
+    console.log(myBalance);
+
+
+### Private Methods
+
+    function Person(first,last,age) {
+       this.firstname = first;
+       this.lastname = last;
+       this.age = age;
+       var bankBalance = 7500;
+      
+       var returnBalance = function() {
+          return bankBalance;
+       };
+           
+       // create the new function here
+       this.askTeller = function(){
+            return returnBalance;
+        }
+    }
+
+    var john = new Person('John','Smith',30);
+    var myBalanceMethod = john.askTeller();
+    var myBalance = myBalanceMethod();
+    console.log(myBalance);
+
+
+### For in - typeof
+
+    var languages = {
+        english: "Hello!",
+        french: "Bonjour!",
+        notALanguage: 4,
+        spanish: "Hola!"
+    };
+
+
+    for(var prop in languages){
+        if(typeof languages[prop] === "string"){
+            console.log(languages[prop]);
+        }
+    }
+
+
+### prototype
+
+    function Dog (breed) {
+        this.breed = breed;
+    };
+
+    Dog.prototype.sayHello = function(breed){
+        console.log("Hello this is a " + this.breed + " dog")
+    };
+
+    var yourDog = new Dog("golden retriever");
+    yourDog.sayHello();
+
+    var myDog = new Dog("dachshund");
+    myDog.sayHello();
+
+
+
+
+
+### Lots of methods
+
+    function StaffMember(name,discountPercent){
+        this.name = name;
+        this.discountPercent = discountPercent;
+    }
+
+    var sally = new StaffMember("Sally",5);
+    var bob = new StaffMember("Bob",10);
+
+    // Create yourself again as 'me' with a staff discount of 20%
+    var me = new StaffMember("me",20);
+
+    var cashRegister = {
+        total:0,
+        lastTransactionAmount: 0,
+        add: function(itemCost){
+            this.total += (itemCost || 0);
+            this.lastTransactionAmount = itemCost;
+        },
+        scan: function(item,quantity){
+            switch (item){
+            case "eggs": this.add(0.98 * quantity); break;
+            case "milk": this.add(1.23 * quantity); break;
+            case "magazine": this.add(4.99 * quantity); break;
+            case "chocolate": this.add(0.45 * quantity); break;
+            }
+            return true;
+        },
+        voidLastTransaction : function(){
+            this.total -= this.lastTransactionAmount;
+            this.lastTransactionAmount = 0;
+        },
+        // Create a new method applyStaffDiscount here
+        applyStaffDiscount: function(employee){
+            this.total -= this.total * (employee.discountPercent / 100);
+        }
+    };
+
+    cashRegister.scan('eggs',1);
+    cashRegister.scan('milk',1);
+    cashRegister.scan('magazine',3);
+    // Apply your staff discount by passing the 'me' object 
+    // to applyStaffDiscount
+    cashRegister.applyStaffDiscount(me);
+
+    // Show the total bill
+    console.log('Your bill is '+cashRegister.total.toFixed(2));
+
+
+
+
